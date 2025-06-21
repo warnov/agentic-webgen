@@ -30,26 +30,27 @@ functions = FunctionTool([fill_template_from_json])
 
 toolset = ToolSet()
 toolset.add(functions)
-
-# 🔑 THIS IS THE KEY STEP WE WERE MISSING!
+# Enable automatic function calling for the toolset
+# This is necessary to allow the agent to call the function automatically
 agents_client.enable_auto_function_calls(toolset)
 
 # 🤖 Create the agent
 agent = agents_client.create_agent(
     model=MODEL_DEPLOYMENT_NAME,
     name="html-template-agent",
-    instructions="You are an agent that receives JSON data and uses the fill_template_from_json function to fill an HTML template. Return only the file URL to the user.",
+    instructions =
+        "You are an agent that receives requests for publishing personal cards. These cards contain name, city and profession. For this publishing, it is required that an html template be filled with a json representing the person info to publish. When the user describes a person in natural language, extract exactly three fields—\"name\", \"city\" and \"profession\"—and build a JSON object like:\n" +
+        "{\n" +
+        "  \"name\": \"<Full Name>\",\n" +
+        "  \"city\": \"<City Name>\",\n" +
+        "  \"profession\": \"<Profession Title>\"\n" +
+        "}\n" +
+        "Return only the file URL to the user.",
     toolset=toolset,
 )
 
-# 📤 Sample message
-json_data = {
-    "name": "Walter Novoa",
-    "city": "Medellín", 
-    "profession": "Systems Engineer"
-}
 
-user_input = f"Please fill the HTML template with this data: {json.dumps(json_data)}"
+user_input = f"Publica una tarjeta personal para Walter Novoa, que vive en New York y trabaja como Solutions Architect."
 
 # 🎯 Create conversation and run
 thread = agents_client.threads.create()
@@ -60,7 +61,7 @@ agents_client.messages.create(
     content=user_input
 )
 
-# Now automatic function calling should work!
+# Start the agent run
 run = agents_client.runs.create_and_process(
     thread_id=thread.id,
     agent_id=agent.id
