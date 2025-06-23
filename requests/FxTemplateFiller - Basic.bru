@@ -1,0 +1,22 @@
+meta {
+  name: FxTemplateFiller - Basic
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:7105/api/FxTemplateFiller
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Welcome to My Page",
+    "name": "Alice Smith",
+    "city": "New York",
+    "profession": "Software Engineer",
+    "message": "Thank you for visiting this demo!",
+    "date": "2024-06-07"
+  }
+}
