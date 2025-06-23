@@ -1,9 +1,9 @@
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client.Extensions.Msal;
 
 namespace AgenticWebGen.Fx
 {
@@ -81,13 +81,25 @@ namespace AgenticWebGen.Fx
             string outputBlobName = $"filled_template_{timestamp}.html";
             var outputBlobClient = containerClient.GetBlobClient(outputBlobName);
             using var uploadStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(htmlTemplate));
+            var headers = new BlobHttpHeaders { ContentType = "text/html" };
+
+            // Asegúrate de que el stream está en la posición 0
+            uploadStream.Position = 0;
+
+            // Sube el blob con los headers
             await outputBlobClient.UploadAsync(uploadStream, overwrite: true);
 
-
-
+            // Refuerza los headers por si acaso
+            await outputBlobClient.SetHttpHeadersAsync(new BlobHttpHeaders { ContentType = "text/html" });
             
-            
-            return new OkObjectResult(htmlTemplate);
+
+            _logger.LogInformation("Template uploaded to blob storage: {OutputBlobName}", outputBlobName);
+
+            // Return the full URL of the new blob
+            return new OkObjectResult(new
+            {
+                url = outputBlobClient.Uri.ToString()
+            });
         }
     }
 }

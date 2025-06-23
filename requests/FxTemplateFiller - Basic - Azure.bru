@@ -1,0 +1,26 @@
+meta {
+  name: FxTemplateFiller - Basic - Azure
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:7105/api/FxTemplateFiller?code={{FxTemplateFillerCode}}
+  body: json
+  auth: inherit
+}
+
+params:query {
+  code: {{FxTemplateFillerCode}}
+}
+
+body:json {
+  {
+    "title": "La mejor en el mundo",
+    "name": "Alicia Avila",
+    "city": "Bogotá",
+    "profession": "Best Mom in the World",
+    "message": "Yo lo acompaño",
+    "date": "2024-06-07"
+  }
+}
