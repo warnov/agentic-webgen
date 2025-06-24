@@ -1,0 +1,5 @@
+azure-ai-projects
+azure-ai-agents
+azure-identity
+azure-storage-blob
+python-dotenv
