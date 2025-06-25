@@ -1,0 +1,74 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "HTML Template Filler",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "{base_url}"
+    }
+  ],
+  "paths": {
+    "/api/FxTemplateFiller": {
+      "post": {
+        "operationId": "fill_template_from_json",
+        "summary": "Fill HTML template with JSON data",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title for the personal card"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Full name of the person"
+                  },
+                  "city": {
+                    "type": "string",
+                    "description": "City where the person lives"
+                  },
+                  "profession": {
+                    "type": "string",
+                    "description": "Professional title or job"
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "Personal message or description"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Date for the card generation"
+                  }
+                },
+                "required": ["title", "name", "city", "profession", "message", "date"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "URL of the generated HTML file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
