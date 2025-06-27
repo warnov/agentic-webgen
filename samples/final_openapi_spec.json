@@ -10,7 +10,7 @@
     }
   ],
   "paths": {
-    "/api/FxTemplateFiller?code=XXXXXX": {
+    "/api/FxTemplateFiller?FXCODE": {
       "post": {
         "operationId": "fill_template_from_json",
         "summary": "Fill HTML template with JSON data",
