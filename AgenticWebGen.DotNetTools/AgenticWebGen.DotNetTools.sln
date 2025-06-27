@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQuerier.FX", "SqlQuerier.FX\SqlQuerier.FX.csproj", "{DC14A7DE-D847-4D97-BD58-A8206EEFFAFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{A9592746-F8CA-0FA3-1716-CBCC05984A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9592746-F8CA-0FA3-1716-CBCC05984A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9592746-F8CA-0FA3-1716-CBCC05984A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC14A7DE-D847-4D97-BD58-A8206EEFFAFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC14A7DE-D847-4D97-BD58-A8206EEFFAFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC14A7DE-D847-4D97-BD58-A8206EEFFAFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC14A7DE-D847-4D97-BD58-A8206EEFFAFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

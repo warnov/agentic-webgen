@@ -1,0 +1,127 @@
+meta {
+  name: FxReportUploader
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:7176/api/FxReportUploader
+  body: text
+  auth: inherit
+}
+
+body:text {
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CONTOSO – Daily Revenue Report (June 2025)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --brand: #0052cc;
+        --brand-dark: #003b8e;
+        --bg: #f5f7fb;
+        --card: #ffffff;
+        --text: #333333;
+        --radius: 10px;
+        --shadow: 0 2px 6px rgba(0,0,0,.08);
+        --font: "Segoe UI", Roboto, system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: var(--font); background-color: var(--bg); color: var(--text); line-height: 1.5; }
+      header { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: #fff; padding: 2rem 1rem 3.5rem; text-align: center; }
+      header h1 { margin: 0; font-size: 2rem; letter-spacing: .04em; }
+      nav { margin-top: -2rem; display: flex; justify-content: center; }
+      nav ul { list-style: none; margin: 0; padding: 0; background: var(--card); box-shadow: var(--shadow); border-radius: var(--radius); display: flex; overflow-x: auto; }
+      nav li a { display: block; padding: .75rem 1.25rem; text-decoration: none; color: var(--text); font-weight: 600; white-space: nowrap; }
+      nav li a:hover, nav li a.active { background: var(--brand); color: #fff; }
+      main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+      .report-card { background-color: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem 1.75rem; margin-bottom: 2rem; }
+      .report-card h2 { margin-top: 0; }
+      .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+      .news-card { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1rem 1.25rem; }
+      .news-card h3 { margin-top: 0; font-size: 1.05rem; }
+      .news-card time { font-size: .825rem; color: #666; }
+      footer { background: #eee; padding: 1rem 0; text-align: center; font-size: .875rem; color: #555; }
+      #dailyChart { width: 100% !important; height: 500px !important; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>CONTOSO BI – Sales Performance</h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#" class="active">Sales</a></li>
+        <li><a href="#">Inventory</a></li>
+        <li><a href="#">Customers</a></li>
+        <li><a href="#">Finance</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+    <main>
+      <section class="report-card" id="report-container">
+        <h2>Daily Revenue & Transactions – June 2025</h2>
+        <canvas id="dailyChart"></canvas>
+      </section>
+      <section>
+        <h2>Latest News</h2>
+        <div class="news-grid">
+          <article class="news-card">
+            <h3>Contoso unveils new BI dashboard</h3>
+            <time datetime="2025-06-26">26 Jun 2025</time>
+            <p>The latest release introduces mobile‑first layouts and faster report refresh.</p>
+          </article>
+          <article class="news-card">
+            <h3>Azure migration milestone achieved</h3>
+            <time datetime="2025-06-22">22 Jun 2025</time>
+            <p>95% of on‑prem SQL workloads now run on Azure SQL Database, boosting resiliency.</p>
+          </article>
+          <article class="news-card">
+            <h3>Annual Strategy Summit announced</h3>
+            <time datetime="2025-06-18">18 Jun 2025</time>
+            <p>Executives will meet in Seattle to define FY26 data & AI roadmaps.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer>
+      © 2025 CONTOSO Corporation — BI Division. All rights reserved.
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const raw = [
+        {"SaleDay":"2025-06-01T00:00:00","Transactions":1,"TotalRevenue":2362.79},
+        {"SaleDay":"2025-06-02T00:00:00","Transactions":5,"TotalRevenue":20981.33},
+        {"SaleDay":"2025-06-04T00:00:00","Transactions":3,"TotalRevenue":13923.74},
+        {"SaleDay":"2025-06-05T00:00:00","Transactions":1,"TotalRevenue":2153.77},
+        {"SaleDay":"2025-06-06T00:00:00","Transactions":1,"TotalRevenue":2088.90},
+        {"SaleDay":"2025-06-08T00:00:00","Transactions":3,"TotalRevenue":6286.46},
+        {"SaleDay":"2025-06-09T00:00:00","Transactions":5,"TotalRevenue":21063.76},
+        {"SaleDay":"2025-06-10T00:00:00","Transactions":2,"TotalRevenue":6896.95},
+        {"SaleDay":"2025-06-12T00:00:00","Transactions":1,"TotalRevenue":9628.25},
+        {"SaleDay":"2025-06-13T00:00:00","Transactions":3,"TotalRevenue":19046.45},
+        {"SaleDay":"2025-06-14T00:00:00","Transactions":4,"TotalRevenue":14294.48},
+        {"SaleDay":"2025-06-15T00:00:00","Transactions":2,"TotalRevenue":8678.93},
+        {"SaleDay":"2025-06-17T00:00:00","Transactions":2,"TotalRevenue":1351.89},
+        {"SaleDay":"2025-06-18T00:00:00","Transactions":4,"TotalRevenue":24417.71},
+        {"SaleDay":"2025-06-19T00:00:00","Transactions":4,"TotalRevenue":10116.68},
+        {"SaleDay":"2025-06-20T00:00:00","Transactions":2,"TotalRevenue":11706.16},
+        {"SaleDay":"2025-06-21T00:00:00","Transactions":2,"TotalRevenue":5079.70},
+        {"SaleDay":"2025-06-22T00:00:00","Transactions":2,"TotalRevenue":417.96},
+        {"SaleDay":"2025-06-23T00:00:00","Transactions":1,"TotalRevenue":1648.90},
+        {"SaleDay":"2025-06-25T00:00:00","Transactions":2,"TotalRevenue":1020.77}
+      ];
+      const labels = raw.map(r => new Date(r.SaleDay).toLocaleDateString('en-US',{month:'short',day:'2-digit'}));
+      const revenueSeries = raw.map(r => r.TotalRevenue);
+      const txSeries = raw.map(r => r.Transactions);
+      new Chart(document.getElementById('dailyChart'),{
+        data:{labels,datasets:[{type:'bar',label:'Total Revenue (USD)',data:revenueSeries,yAxisID:'y',borderWidth:1},{type:'line',label:'Transactions',data:txSeries,yAxisID:'y1',tension:0.3,pointRadius:3,fill:false}]},
+        options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,title:{display:true,text:'Revenue (USD)'},ticks:{callback:v=>'$'+v.toLocaleString()}},y1:{position:'right',grid:{drawOnChartArea:false},beginAtZero:true,title:{display:true,text:'Transactions'}},x:{ticks:{font:{size:10}}}},plugins:{tooltip:{callbacks:{label:ctx=>ctx.dataset.yAxisID==='y'?'$'+ctx.parsed.y.toLocaleString():ctx.parsed.y+' transactions'}},legend:{display:true}}}
+      });
+    </script>
+  </body>
+  </html>
+}

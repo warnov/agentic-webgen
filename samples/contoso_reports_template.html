@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Contoso BI Reports</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    /* —— Design Tokens —— */
+    :root {
+      --brand: #0067c5;       /* Contoso blue */
+      --brand-dark: #004999;
+      --bg: #f5f7fb;          /* soft gray‑blue background */
+      --card: #ffffff;        /* white card */
+      --text: #333;           /* primary text */
+      --shadow: 0 2px 8px rgba(0,0,0,.08);
+      --radius: 12px;
+      --font: "Segoe UI", system-ui, sans-serif;
+      --gap: 1.5rem;
+    }
+
+    /* —— Global Reset —— */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* —— Header —— */
+    header {
+      background: var(--brand);
+      color: #fff;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.75rem;
+      letter-spacing: .5px;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 1.25rem;
+      text-decoration: none;
+      font-size: .95rem;
+      opacity: .85;
+    }
+    nav a:hover { opacity: 1; }
+
+    /* —— Main Layout —— */
+    main {
+      flex: 1;
+      padding: var(--gap);
+      display: grid;
+      grid-template-columns: 1fr min(1024px, 100%) 1fr;
+    }
+    main > * {
+      grid-column: 2;
+    }
+
+    /* —— Report Container —— */
+    #report-container {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--gap);
+      margin-bottom: var(--gap);
+      overflow-x: auto;
+    }
+
+    /* —— News Section —— */
+    #news {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--gap);
+    }
+    #news h2 {
+      margin-top: 0;
+    }
+    .news-item {
+      border-left: 4px solid var(--brand);
+      padding-left: 1rem;
+      margin-bottom: .75rem;
+    }
+    .news-item time { color: #666; font-size: .8rem; }
+
+    /* —— Footer —— */
+    footer {
+      background: var(--brand-dark);
+      color: #e8eef9;
+      padding: 1rem 2rem;
+      font-size: .85rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Contoso BI&nbsp;Reports</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Dashboards</a>
+      <a href="#">Data&nbsp;Sources</a>
+      <a href="#">Help</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Dynamic report area → inject charts, tables or text here -->
+    <section id="report-container">
+      <h2>Sales Overview – Placeholder</h2>
+      <p>Replace this block with the generated chart or table component for the selected query.</p>
+    </section>
+
+    <!-- Simulated news feed below the report  -->
+    <section id="news">
+      <h2>Contoso News</h2>
+      <article class="news-item">
+        <h3>Contoso expands Azure footprint in South America</h3>
+        <time datetime="2025-06-24">June 24, 2025</time>
+        <p>Contoso has opened a new Azure region in Bogotá to improve latency for LATAM customers and enhance data residency options.</p>
+      </article>
+      <article class="news-item">
+        <h3>Quarterly earnings beat expectations</h3>
+        <time datetime="2025-06-20">June 20, 2025</time>
+        <p>The company reported a 12% YoY revenue increase, driven by strong cloud service adoption and hardware sales.</p>
+      </article>
+      <article class="news-item">
+        <h3>Upcoming webinar: AI-driven supply chain analytics</h3>
+        <time datetime="2025-06-18">June 18, 2025</time>
+        <p>Join our experts on July 7th to explore how machine learning optimizes forecasting and inventory management.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Contoso Corporation · Confidential & Proprietary · Designed by the BI Insights Team
+  </footer>
+
+  <!-- Placeholder script for future dynamic content -->
+  <script>
+    // Example: inject a report via fetch or local rendering
+    // fetch('/api/report?id=123').then(r=>r.text()).then(html=>{
+    //   document.getElementById('report-container').innerHTML = html;
+    // });
+  </script>
+</body>
+</html>

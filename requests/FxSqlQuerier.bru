@@ -1,0 +1,15 @@
+meta {
+  name: FxSqlQuerier
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:7176/api/FxSqlQuerier
+  body: text
+  auth: inherit
+}
+
+body:text {
+  SELECT TOP (5) p.ProductID, p.ProductName, SUM(si.Quantity) AS TotalQuantitySold, SUM(si.Quantity * si.UnitPrice) AS TotalRevenue FROM dbo.SaleItems AS si JOIN dbo.Products AS p ON p.ProductID = si.ProductID GROUP BY p.ProductID, p.ProductName ORDER BY TotalRevenue DESC;
+}

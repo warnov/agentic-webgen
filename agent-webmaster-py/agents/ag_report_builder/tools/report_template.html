@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CONTOSO – BI Reports Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* ----------------------------------------------------------
+       Design tokens (match earlier report files)
+    ----------------------------------------------------------*/
+    :root {
+      --brand: #0052cc;
+      --brand-dark: #003b8e;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #333333;
+      --radius: 10px;
+      --shadow: 0 2px 6px rgba(0,0,0,.08);
+      --font: "Segoe UI", Roboto, system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    /* ----------------------------------------------------------
+       Header banner
+    ----------------------------------------------------------*/
+    header {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      color: #fff;
+      padding: 2rem 1rem 3.5rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: .04em;
+    }
+    /* ----------------------------------------------------------
+       Top navigation
+    ----------------------------------------------------------*/
+    nav {
+      margin-top: -2rem; /* elevate over banner bottom */
+      display: flex;
+      justify-content: center;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      display: flex;
+      overflow-x: auto;
+    }
+    nav li a {
+      display: block;
+      padding: .75rem 1.25rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    nav li a:hover,
+    nav li a.active {
+      background: var(--brand);
+      color: #fff;
+    }
+    /* ----------------------------------------------------------
+       Main content container
+    ----------------------------------------------------------*/
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .report-card {
+      background-color: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .report-card h2 {
+      margin-top: 0;
+    }
+    /* ----------------------------------------------------------
+       News section (simple cards)
+    ----------------------------------------------------------*/
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .news-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem 1.25rem;
+    }
+    .news-card h3 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+    .news-card time {
+      font-size: .825rem;
+      color: #666;
+    }
+    /* ----------------------------------------------------------
+       Footer
+    ----------------------------------------------------------*/
+    footer {
+      background: #eee;
+      padding: 1rem 0;
+      text-align: center;
+      font-size: .875rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Hero -->
+  <header>
+    <h1>CONTOSO Business Intelligence Reports</h1>
+  </header>
+
+  <!-- Navigation menu -->
+  <nav>
+    <ul>
+      <li><a href="#" class="active">Dashboard</a></li>
+      <li><a href="#">Sales</a></li>
+      <li><a href="#">Inventory</a></li>
+      <li><a href="#">Customers</a></li>
+      <li><a href="#">Finance</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <!-- Report container -->
+    <section class="report-card" id="report-container">
+      <h2>Report Title Placeholder</h2>
+      <!-- Inject table, chart, or text report here -->
+    </section>
+
+    <!-- Simulated News Section -->
+    <section>
+      <h2>Latest News</h2>
+      <div class="news-grid">
+        <article class="news-card">
+          <h3>Contoso launches AI‑powered demand forecasting</h3>
+          <time datetime="2025-06-26">26 Jun 2025</time>
+          <p>Our data science team rolled out a new predictive model that improves inventory turns by 18%.</p>
+        </article>
+        <article class="news-card">
+          <h3>Q3 earnings call scheduled for July 15</h3>
+          <time datetime="2025-06-20">20 Jun 2025</time>
+          <p>Join the webcast to hear executive insights and key metrics driving our growth trajectory.</p>
+        </article>
+        <article class="news-card">
+          <h3>Warehouse modernization complete</h3>
+          <time datetime="2025-06-17">17 Jun 2025</time>
+          <p>The Phoenix DC now features automated picking robots and IoT‑enabled monitoring.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer / Pie de página -->
+  <footer>
+    © 2025 CONTOSO Corporation — Business Intelligence Division. All rights reserved.
+  </footer>
+
+  <!-- Placeholder: extend with JS to dynamically load reports -->
+</body>
+</html>

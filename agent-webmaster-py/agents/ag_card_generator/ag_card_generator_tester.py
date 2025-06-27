@@ -15,7 +15,7 @@ def test_card_generator():
     # Get user input
     user_prompt = input("Enter your prompt (or press Enter for default): ").strip()
     if not user_prompt:
-        user_prompt = "Generate a business card"
+        user_prompt = "Generate a business card for someone called Walter"
     
     # 🎯 Create conversation and run
     thread = agents_client.threads.create()
