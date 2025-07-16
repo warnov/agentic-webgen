@@ -51,6 +51,7 @@ The solution consists of three main components:
   - .NET 8 SDK (for Azure Functions)
   - Azure Functions Core Tools
   - Visual Studio Code (recommended)
+  - REST Client (this repo uses Bruno)
 
 ## 🛠️ Installation & Setup
 
@@ -63,6 +64,8 @@ cd agentic-webgen
 ### 2. Python Agent Setup
 ```bash
 cd agent-webmaster-py
+python3 -m venv vvenv
+source myvenv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -85,7 +88,7 @@ dotnet build
 ### 5. Azure Storage Setup
 - Create a storage account
 - Create a container named `templates`
-- Upload an HTML template file named `template1.html` with placeholders like `{{title}}`, `{{name}}`, etc.
+- Upload the HTML template file named `template1.html` in the samples folder to the 'templates' container that you just created.
 
 ## 🎯 Usage
 
