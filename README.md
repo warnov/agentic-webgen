@@ -1,6 +1,114 @@
-# Agentic Web Generator
+# 🧠 Agentic Business Card Generator on Azure AI Foundry
 
-A comprehensive AI-powered solution for generating and publishing personal business cards through intelligent agents. This system combines Azure AI Agents with Azure Functions to create an automated workflow for generating personalized HTML cards and publishing them to the web.
+This repository contains a hands-on example of an **agent-based application built with Azure AI Foundry**, focused on showcasing how intelligent agents can collaborate to generate and publish a fully customized personal business card.
+
+## 🎯 Project Overview
+
+This application demonstrates a **multi-agent architecture** in which a user interacts through natural language with an orchestrating agent, requesting the creation of a business card for a given person. The user can provide complete or partial information (name, location, profession, etc.), and the agents will intelligently infer and complete the rest to produce a realistic business card.
+
+The final output is a **web-based HTML business card**, hosted publicly on Azure Blob Storage.
+
+## 🧩 Architecture Summary
+
+The system consists of two AI Foundry agents:
+
+### 1. 🧠 Data Extraction Agent (powered by GPT-3.5)
+
+- Receives raw, natural language input from the orchestrator agent.
+- Extracts structured personal information from the input.
+- Returns a clean JSON representation of the data.
+- Does **not** use external tools — only a basic language model (GPT-3.5).
+
+### 2. 🤖 Orchestrator Agent
+
+- Serves as the main entry point for user interaction.
+- Coordinates multiple steps using agent tools:
+  - **Agent-to-Agent Tool:** Connects to the Data Extraction Agent to obtain structured data.
+  - **Azure Function Tool:** Sends the resulting JSON to an Azure Function.
+  - **Azure Function:** Fills an HTML template with the received data and uploads it to Azure Blob Storage.
+- Finally, it returns the public URL of the generated HTML page (business card) to the user.
+
+This demonstrates **tool-based orchestration**, **agent chaining**, and **integration with external services** like Azure Functions and Azure Storage — all within the AI Foundry framework.
+
+## 🚀 What You'll Learn
+
+- How to build and configure multi-agent solutions in Azure AI Foundry.
+- How to create an agent that transforms unstructured input into structured JSON.
+- How to orchestrate tools (like Azure Functions) from within an AI agent.
+- How to deploy and publish HTML content via Azure Blob Storage.
+- How to chain multiple agents for collaborative AI workflows.
+
+---
+
+## 🛠️ Installation & Requirements
+
+This solution is fully **cross-platform** and works on **Windows, macOS, and Linux**. However, a convenience script is provided for **Windows** users to automate the installation process.
+
+### ✅ Prerequisites
+
+Make sure the following components are installed:
+
+- [Git](https://git-scm.com/downloads)
+- [Python 3.12+](https://www.python.org/downloads/)
+- [.NET SDK 8+](https://dotnet.microsoft.com/download)
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+
+### 🔌 Recommended VSCode Extensions
+
+We recommend installing the following VSCode extensions to enhance your development experience:
+
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) – for Python development and debugging (`ms-python.python`)
+- [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions) – for managing and editing Azure Functions projects (`ms-azuretools.vscode-azurefunctions`)
+- [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) – required for .NET Function tools and IntelliSense (`ms-dotnettools.csharp`)
+- [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) – to test APIs directly from `.http` files in VSCode (`humao.rest-client`)
+
+> These extensions allow for smooth development, debugging, and testing of both AI agents and supporting services like Azure Functions.
+
+To install them manually, just search by name in the VSCode Extensions Marketplace or use the command line:
+
+```bash
+code --install-extension ms-python.python
+code --install-extension ms-azuretools.vscode-azurefunctions
+code --install-extension ms-dotnettools.csharp
+code --install-extension humao.rest-client
+```
+
+---
+
+### 🪟 Quick Setup for Windows
+
+For Windows users, we've included an automated setup script:
+
+```powershell
+misc/setup-dev-win.ps1
+```
+
+This script will:
+
+- Install Visual Studio Code
+- Install Git
+- Install Python 3.12
+- Install .NET SDK 8
+- Install all recommended VSCode extensions
+
+> 🟡 **After running the script**, restart your terminal to ensure all tools are available in the current session.
+
+You can run the script from PowerShell with:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; ./misc/setup-dev-win.ps1
+```
+
+---
+
+If you're on **macOS or Linux**, just ensure you manually install the same components listed above. The rest of the setup and execution steps remain identical across all platforms.
+
+---
+
+
+
+
 
 ## 🏗️ Architecture Overview
 

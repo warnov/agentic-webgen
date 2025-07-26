@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SQL Querier Function",
+    "description": "Azure Function that executes T-SQL queries against a database and returns JSON results",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "PLACEHOLDER_BASE_URL"
+    }
+  ],
+  "paths": {
+    "/api/FxSqlQuerier": {
+      "post": {
+        "tags": ["SQL"],
+        "summary": "Execute T-SQL query",
+        "description": "Executes a T-SQL query against the database and returns the results as JSON",
+        "operationId": "ExecuteSqlQuery",
+        "requestBody": {
+          "description": "T-SQL query to execute",
+          "required": true,
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string",
+                "example": "SELECT TOP 10 * FROM Products"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Query executed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                  }
+                },
+                "example": [
+                  {
+                    "ProductID": 1,
+                    "ProductName": "Product A",
+                    "Price": 29.99
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - empty or invalid SQL query",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - SQL execution failed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

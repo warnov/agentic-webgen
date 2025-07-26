@@ -162,6 +162,60 @@ cython_debug/
 .vscode/
 *.code-workspace
 
+# Visual Studio solution and project files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vssscc
+*.vspscc
+*.psess
+*.vsp
+*.pdb
+*.cache
+*.log
+TestResults/
+*.TestResults
+*.PublishProfiles/
+*.ServiceDependencies/
+*.dbmdl
+*.bak
+*.backup
+*.mdf
+*.ldf
+*.ndf
+*.sql
+*.sdf
+*.sln
+*.csproj
+*.vbproj
+*.dbproj
+*.fsproj
+*.xproj
+*.vcxproj
+*.vcproj
+*.wixproj
+*.modelproj
+*.pyproj
+*.proj
+*.sln*
+*.csproj*
+*.vbproj*
+*.dbproj*
+*.fsproj*
+*.xproj*
+*.vcxproj*
+*.vcproj*
+*.wixproj*
+*.modelproj*
+*.pyproj*
+*.proj*
+
+# Build output folders
+bin/
+obj/
+
 # Operating System Files
 # Windows
 Thumbs.db

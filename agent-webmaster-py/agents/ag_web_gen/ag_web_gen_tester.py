@@ -5,6 +5,56 @@ Simple tester for the AG Web Generator agent.
 
 import os
 import sys
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Display current environment configuration
+def display_environment_info():
+    """Display current environment configuration and settings."""
+    environment = os.getenv('ENVIRONMENT', 'unknown')
+    
+    print("╔" + "═" * 60 + "╗")
+    print("║" + " 🚀 AGENTIC WEB GENERATOR TESTER ".center(60) + "║")
+    print("╠" + "═" * 60 + "╣")
+    
+    # Environment indicator with colors
+    if environment.lower() == 'public':
+        env_indicator = "🌐 PUBLIC ENVIRONMENT"
+        env_color = "🟢"
+    elif environment.lower() == 'private':
+        env_indicator = "🔒 PRIVATE ENVIRONMENT"
+        env_color = "🔴"
+    else:
+        env_indicator = f"❓ UNKNOWN ENVIRONMENT ({environment})"
+        env_color = "🟡"
+    
+    print(f"║ {env_color} {env_indicator:<50} ║")
+    print("╠" + "─" * 60 + "╣")
+    
+    # Display key configuration details
+    project_endpoint = os.getenv('PROJECT_ENDPOINT', 'Not set')
+    function_url = os.getenv('AZURE_FUNCTION_URL', 'Not set')
+    model_deployment = os.getenv('MODEL_DEPLOYMENT_NAME', 'Not set')
+    
+    # Truncate long URLs for display
+    if len(project_endpoint) > 45:
+        project_display = project_endpoint[:42] + "..."
+    else:
+        project_display = project_endpoint
+        
+    if len(function_url) > 45:
+        function_display = function_url[:42] + "..."
+    else:
+        function_display = function_url
+    
+    print(f"║ 🎯 Project: {project_display:<47} ║")
+    print(f"║ 🔧 Function: {function_display:<46} ║")
+    print(f"║ 🤖 Model: {model_deployment:<49} ║")
+    print("╚" + "═" * 60 + "╝")
+    print()
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from agents.ag_web_gen import ag_web_gen
 
@@ -14,6 +64,9 @@ from agents.ag_web_gen import ag_web_gen
 
 def test_web_gen_agent():
     """Test the web generator agent."""
+    
+    # Display environment information
+    display_environment_info()
     
     # Get agent instance and client (handles everything internally)
     agent = ag_web_gen.instance

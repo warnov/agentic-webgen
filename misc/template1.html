@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{title}}</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    header {
+      background: #0078d7;
+      color: white;
+      padding: 20px;
+      border-radius: 8px 8px 0 0;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    section {
+      background: white;
+      padding: 30px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    p {
+      line-height: 1.6;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>{{title}}</h1>
+  </header>
+  <section>
+    <p><strong>Name:</strong> {{name}}</p>
+    <p><strong>City:</strong> {{city}}</p>
+    <p><strong>Profession:</strong> {{profession}}</p>
+    <p><strong>Message:</strong> {{message}}</p>
+  </section>
+  <footer>
+    Generated on {{date}}
+  </footer>
+</body>
+</html>
