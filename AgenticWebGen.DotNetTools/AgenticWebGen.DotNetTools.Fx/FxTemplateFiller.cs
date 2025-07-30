@@ -40,14 +40,15 @@ namespace AgenticWebGen.Fx
 
 
             //Configure Blob Storage settings
-            const string containerName = "templates";
-            const string templateBlobName = "template1.html";
+            const string templatesContainerName = "templates";
+            const string cardsContainerName = "cards";
+            const string templateBlobName = "business_card_template.html";
 
 
             var conn = Environment.GetEnvironmentVariable("AZURE_STORAGE_CONNECTION_STRING")!;
             var blobServiceClient = new BlobServiceClient(conn);            
-            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-            var blobClient = containerClient.GetBlobClient(templateBlobName);
+            var templatesContainerClient = blobServiceClient.GetBlobContainerClient(templatesContainerName);
+            var blobClient = templatesContainerClient.GetBlobClient(templateBlobName);
 
 
             //Download the HTML template
@@ -79,7 +80,8 @@ namespace AgenticWebGen.Fx
             //Upload the filled template
             string timestamp = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             string outputBlobName = $"filled_template_{timestamp}.html";
-            var outputBlobClient = containerClient.GetBlobClient(outputBlobName);
+            var cardsContainerClient = blobServiceClient.GetBlobContainerClient(cardsContainerName);
+            var outputBlobClient = cardsContainerClient.GetBlobClient(outputBlobName);
             using var uploadStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(htmlTemplate));
             var headers = new BlobHttpHeaders { ContentType = "text/html" };
 

@@ -136,6 +136,17 @@
               }
             },
             {
+              "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+              "apiVersion": "2023-01-01",
+              "name": "[concat(parameters('storageAccountName'), '/default/app-packages')]",
+              "dependsOn": [
+                "[variables('storageAccountId')]"
+              ],
+              "properties": {
+                "publicAccess": "None"
+              }
+            },
+            {
               "type": "Microsoft.Web/serverfarms",
               "apiVersion": "2023-01-01",
               "name": "[concat(parameters('functionAppName'), '-linux-asp')]",
@@ -144,21 +155,12 @@
                 "[variables('storageAccountId')]"
               ],
               "sku": {
-                "name": "EP1",
-                "tier": "ElasticPremium",
-                "size": "EP1",
-                "family": "EP",
-                "capacity": 0
+                "name": "FC1",
+                "tier": "FlexConsumption"
               },
-              "kind": "elastic",
+              "kind": "functionapp",
               "properties": {
-                "elasticScaleEnabled": true,
-                "maximumElasticWorkerCount": 20,
-                "perSiteScaling": false,
-                "reserved": true,
-                "targetWorkerCount": 0,
-                "targetWorkerSizeId": 0,
-                "zoneRedundant": false
+                "reserved": true
               }
             },
             {
@@ -177,39 +179,42 @@
               "properties": {
                 "enabled": true,
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('functionAppName'), '-linux-asp'))]",
+                "functionAppConfig": {
+                  "deployment": {
+                    "storage": {
+                      "type": "blobContainer",
+                      "value": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/app-packages')]",
+                      "authentication": {
+                        "type": "StorageAccountConnectionString",
+                        "storageAccountConnectionStringName": "AzureWebJobsStorage"
+                      }
+                    }
+                  },
+                  "scaleAndConcurrency": {
+                    "maximumInstanceCount": 1000,
+                    "instanceMemoryMB": 512
+                  },
+                  "runtime": {
+                    "name": "dotnet-isolated",
+                    "version": "8.0"
+                  }
+                },
                 "siteConfig": {
-                  "linuxFxVersion": "DOTNET-ISOLATED|8.0",
                   "appSettings": [
                     {
                       "name": "AzureWebJobsStorage",
                       "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountId'), '2023-01-01').keys[0].value, ';EndpointSuffix=','core.windows.net')]"
                     },
                     {
-                      "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
-                      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountId'), '2023-01-01').keys[0].value, ';EndpointSuffix=','core.windows.net')]"
-                    },
-                    {
-                      "name": "WEBSITE_CONTENTSHARE",
-                      "value": "[toLower(parameters('functionAppName'))]"
-                    },
-                    {
                       "name": "FUNCTIONS_EXTENSION_VERSION",
                       "value": "~4"
-                    },
-                    {
-                      "name": "FUNCTIONS_WORKER_RUNTIME",
-                      "value": "dotnet-isolated"
                     },
                     {
                       "name": "AZURE_STORAGE_CONNECTION_STRING",
                       "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountId'), '2023-01-01').keys[0].value, ';EndpointSuffix=','core.windows.net')]"
                     }
                   ],
-                  "use32BitWorkerProcess": false,
-                  "elasticWebAppScaleLimit": 20,
-                  "minimumElasticInstanceCount": 0,
-                  "functionAppScaleLimit": 20,
-                  "appScaleLimit": 20
+                  "use32BitWorkerProcess": false
                 },
                 "reserved": true,
                 "isXenon": false,

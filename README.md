@@ -185,7 +185,7 @@ Two storage containers were deployed:
 - **`templates`**: Contains the HTML template for business cards, which is private and not publicly accessible. A sample template file called [`business_card_template.html`](./misc/business_card_template.html) is provided in the `misc` folder. You can upload it to the `templates` container using Azure Storage Explorer, the Azure Portal or this command (for this you need to have the Azure CLI installed, configured and authenticated):
  
 ```bash
-az storage blob upload --account-name stagenticwebgen --container-name templates --file ./misc/business_card_template.html --name business_card_template.html
+az storage blob upload --account-name stagenticwebgenw --container-name templates --file ./misc/business_card_template.html --name business_card_template.html
 ```
 That is the template that will be used by the Azure Function to generate the business cards.
 

@@ -9,16 +9,16 @@
       "value": "East US2"
     },
     "storageAccountName": {
-      "value": "stagenticwebgen"
+      "value": "stagenticwebgenw"
     },
     "environment": {
       "value": "dev"
     },
     "functionAppName": {
-      "value": "func-agentic-webgen"
+      "value": "func-agentic-webgen-flex"
     },
     "aiFoundryName": {
-      "value": "ai-foundry-webgen"
+      "value": "ai-foundry-webgenw"
     }
   }
 }

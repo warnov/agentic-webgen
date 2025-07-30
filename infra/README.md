@@ -26,7 +26,7 @@ This directory contains ARM templates and scripts to deploy the complete infrast
   - Access Tier: Hot
   - HTTPS Only: Enabled
   - TLS Version: 1.2 minimum
-- **Current Value**: `stagenticwebgen`
+- **Current Value**: `stagenticwebgen`: Please make sure to create a globally unique name.
 
 **Blob Containers Created:**
 - `templates` - Private access for HTML templates
@@ -56,7 +56,7 @@ This directory contains ARM templates and scripts to deploy the complete infrast
   - System-assigned managed identity
   - Custom subdomain enabled
   - Public network access enabled
-- **Current Value**: `ai-foundry-webgen`
+- **Current Value**: `ai-foundry-webgen`: Please make sure to create a globally unique name.
 
 ## Configurable Parameters
 
