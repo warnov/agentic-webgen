@@ -1,4 +1,4 @@
-# 🧠 Agentic Web Generator on Azure AI Foundry
+# Agentic Web Generator on Azure AI Foundry
 
 This repository provides a hands-on implementation of a multi-agent system built with **Azure AI Foundry**, demonstrating how intelligent agents can be orchestrated to generate and publish personalized business cards as web pages, starting from natural language input.
 
@@ -6,7 +6,7 @@ This repository provides a hands-on implementation of a multi-agent system built
 
 ## Table of Contents
 
-- [🧠 Agentic Web Generator on Azure AI Foundry](#-agentic-web-generator-on-azure-ai-foundry)
+- [Agentic Web Generator on Azure AI Foundry](#agentic-web-generator-on-azure-ai-foundry)
   - [Table of Contents](#table-of-contents)
   - [Project Overview](#project-overview)
   - [What You'll Learn](#what-youll-learn)
@@ -18,10 +18,19 @@ This repository provides a hands-on implementation of a multi-agent system built
     - [Recommended VSCode Extensions](#recommended-vscode-extensions)
     - [Quick Windows Setup](#quick-windows-setup)
   - [Solution Setup](#solution-setup)
-    - [Required Components](#required-components)
+    - [Deploy Azure Required Components](#deploy-azure-required-components)
     - [Configure Deployed Services](#configure-deployed-services)
       - [Azure Storage](#azure-storage)
       - [Azure Function](#azure-function)
+      - [Azure AI Foundry](#azure-ai-foundry)
+  - [Folder Structure](#folder-structure)
+    - [Key Components Explained](#key-components-explained)
+      - [🐍 **agent-webmaster-py/**](#-agent-webmaster-py)
+      - [⚡ **AgenticWebGen.DotNetTools/**](#-agenticwebgendotnettools)
+      - [🏗️ **infra/**](#️-infra)
+      - [🔧 **requests/**](#-requests)
+      - [🌐 **webapp/**](#-webapp)
+      - [📦 **misc/**](#-misc)
 ---
 
 ## Project Overview
@@ -92,7 +101,6 @@ This setup showcases a modular, extensible AI solution using LLM-based agents, m
 ---
 
 ## Installation & Requirements
-🛠️ 
 
 This solution works on **Windows, macOS, and Linux**. A script is provided for quick setup on Windows.
 
@@ -106,7 +114,6 @@ Install:
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Recommended VSCode Extensions
-🔌 
 
 - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 - [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
@@ -122,7 +129,7 @@ code --install-extension humao.rest-client
 
 ### Quick Windows Setup
 
-Run this PowerShell script:
+Run this included PowerShell script if you are in Windows and want to automate the setup of the development environment:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; ./misc/setup-dev-win.ps1
@@ -135,7 +142,7 @@ This solution requires the deployment of a resource group that will contain all 
 
 ---
 
-### Required Components
+### Deploy Azure Required Components
 
 We have included the [infra](./infra) folder from where you can deploy all the necessary Azure infrastructure components for this solution. Please check its [readme](./infra/README.md).
 
@@ -194,8 +201,120 @@ That is the template that will be used by the Azure Function to generate the bus
 #### Azure Function
 The Azure Function App is already configured to use the storage account created in the infrastructure deployment. You can verify this in the Azure Portal under the Function App's **Configuration** settings.
 We just need to upload the code for the Azure Function that will generate the business cards. You can do this by using any of the methods described [here](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-technologies?tabs=windows#deployment-methods). 
-For example, opening the [function project](AgenticWebGen.DotNetTools/AgenticWebGen.DotNetTools.Fx) in Visual Studio Code and running the following command in the terminal:
 
-```bash
-func azure functionapp publish <YourFunctionAppName>
+#### Azure AI Foundry
+We need to create an AI Foundry project within the Azure AI Foundry resource. This project will contain the agents, models, and tools necessary for the solution. You can do this by following these steps:
+1. Go to the Azure AI Foundry resource in the Azure Portal.
+2. Click on **Agents** in the left menu: This will take you to the AI Foundry project creation page.
+3. Write a name for the project, e.g., `agentic-webgen-project`, and click **Create**.
+4. When the project is created, you will be able to create a **deployment**. In Azure AI Foundry, a deployment refers to the disposition of a language model to be used by your agents. In the bottom o the left menu select **Models + endpoints** and then in the right pane clic on **+Deploy model**. You can create one or many deployments with different models, but for this solution we will use only one deployment of the `gpt-35-turbo` model (a very economic model for this test), so choose **Deploy base model** and search for it. Select it, leave the default values and click **Deploy**.
+5. Now let's get the Azure AI Foundry project endpoint so we could reference it in the Python client to manage the agents here. So from the left menu choose Overview and copy the **Endpoint** URL. It should look like this: `https://<your-foundry-name>.services.ai.azure.com/api/projects/<your-project-name>`. You will need this URL to configure the Python client.
+
+With this, you are ready to run the solution. The Python client will use this endpoint to interact with the AI Foundry project and manage the agents! 🤖
+
+## Folder Structure
+
 ```
+agentic-webgen/
+├── 📁 agent-webmaster-py/              # Python client application and AI agents
+│   ├── 📄 .env                         # Environment variables (API keys, endpoints)
+│   ├── 📄 requirements.txt             # Python dependencies
+│   ├── 📁 agents/                      # AI agent implementations
+│   │   ├── 📁 ag_card_generator/       # JSON Card Generator Agent
+│   │   │   ├── 📄 ag_card_generator.py # Agent logic for extracting structured data
+│   │   │   └── 📄 ag_card_generator_tester.py # Console Program to test the agent
+│   │   ├── 📁 ag_report_builder/       # Report Builder Agent (extended functionality)
+│   │   │   ├── 📄 ag_report_builder.py # Agent for generating reports
+│   │   │   ├── 📄 ag_report_builder_tester.py # Console Program to test the agent
+│   │   │   ├── 📄 README.md            # Agent-specific documentation
+│   │   │   ├── 📁 assets/              # Report templates and resources
+│   │   │   └── 📁 tools/               # Agent-specific tools
+│   │   └── 📁 ag_web_gen/              # Web Generation Agent
+│   │       ├── 📄 ag_web_gen.py        # Main orchestrator agent
+│   │       ├── 📄 ag_web_gen_tester.py # Unit tests for orchestration
+│   │       └── 📁 tools/               # Agent tools (Azure Function calls, etc.)
+│   └── 📁 tools/                       # Shared tools and utilities
+│
+├── 📁 AgenticWebGen.DotNetTools/       # .NET Azure Functions backend
+│   ├── 📄 AgenticWebGen.DotNetTools.sln # Visual Studio solution file
+│   ├── 📁 AgenticWebGen.DotNetTools.Fx/ # Main Function App project
+│   │   ├── 📄 AgenticWebGen.Fx.csproj  # Project file
+│   │   ├── 📄 FxTemplateFiller.cs      # Azure Function for HTML template processing
+│   │   ├── 📄 Program.cs               # Function app entry point
+│   │   ├── 📄 host.json                # Function host configuration
+│   │   ├── 📄 local.settings.json     # Local development settings
+│   │   └── 📁 Properties/              # Project properties and deployment profiles
+│   └── 📁 SqlQuerier.FX/               # Additional SQL querying functions
+│       ├── 📄 FxReportUploader.cs      # Function for report uploads
+│       ├── 📄 FxSqlQuerier.cs          # Function for SQL operations
+│       └── 📄 SqlQuerier.FX.csproj     # Project file
+│
+├── 📁 infra/                           # Infrastructure as Code (IaC)
+│   ├── 📄 infrastructure.json          # ARM template for Azure resources
+│   ├── 📄 infrastructure.parameters.json # ARM template parameters
+│   ├── 📄 deploy-infrastructure.ps1    # PowerShell deployment script
+│   └── 📄 README.md                    # Infrastructure deployment guide
+│
+├── 📁 misc/                            # Miscellaneous files and resources
+│   ├── 📄 agentic_webgen_arch.png      # Architecture diagram
+│   ├── 📄 business_card_template.html  # HTML template for business cards
+│   ├── 📄 contoso_reports_template.html # Sample report template
+│   ├── 📄 setup-dev.ps1               # Windows development environment setup
+│   ├── 📄 configure_public_storage.sh  # Storage configuration script
+│   ├── 📄 db_structure.sql            # Database schema (for extended features)
+│   ├── 📄 tech_sample_seed.sql        # Sample data for testing
+│   └── 📄 final_openapi_spec.json     # API specification
+│
+├── 📁 requests/                        # API testing and development tools
+│   ├── 📄 bruno.json                   # Bruno REST client configuration
+│   ├── 📄 FxTemplateFiller.bru         # Template filler function tests
+│   ├── 📄 FxReportUploader.bru         # Report uploader function tests
+│   ├── 📄 FxSqlQuerier.bru             # SQL querier function tests
+│   └── 📁 environments/                # API testing environments
+│       ├── 📄 AgenticWebGen.bru        # Production environment
+│       ├── 📄 AgenticWebGenLocalhost.bru # Local development environment
+│       └── 📄 PrivateAgenticWebGen.bru # Private/secure environment
+│
+├── 📁 webapp/                          # Streamlit web application (alternative UI)
+│   ├── 📄 streamlit_app.py             # Main Streamlit application
+│   ├── 📄 requirements.txt             # Python dependencies for web app
+│   ├── 📄 startup.sh                   # Application startup script
+│   ├── 📄 .env.example                 # Environment variables template
+│   └── 📄 README.md                    # Web app documentation
+│
+└── 📄 README.md                        # Main project documentation
+```
+
+### Key Components Explained
+
+#### 🐍 **agent-webmaster-py/**
+The Python client application that serves as the main entry point for the solution. Contains the AI agents that orchestrate the business card generation process:
+
+- **Orchestrator Agent** (`ag_web_gen`): Main agent that coordinates the workflow
+- **JSON Card Generator Agent** (`ag_card_generator`): Extracts structured data from natural language
+- **Report Builder Agent** (`ag_report_builder`): Extended functionality for report generation
+
+#### ⚡ **AgenticWebGen.DotNetTools/**
+.NET-based Azure Functions that provide backend services:
+
+- **FxTemplateFiller**: Processes HTML templates and generates business cards
+- **FxReportUploader**: Handles report uploads to Azure Storage
+- **FxSqlQuerier**: Provides database querying capabilities
+
+#### 🏗️ **infra/**
+Infrastructure as Code (IaC) templates for automated Azure resource deployment:
+
+- **ARM Templates**: Define Storage Account, Function App, and AI Foundry resources
+- **Deployment Scripts**: Automate the infrastructure provisioning process
+
+#### 🔧 **requests/**
+API testing suite using Bruno REST client for development and debugging:
+
+- **Function Tests**: Validate Azure Function endpoints
+- **Environment Configs**: Manage different deployment environments (local, staging, production)
+
+#### 🌐 **webapp/**
+Alternative Streamlit-based web interface for users who prefer a GUI over the console application.
+
+#### 📦 **misc/**
+Supporting files including templates, documentation, setup scripts, and architectural diagrams.

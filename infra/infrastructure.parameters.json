@@ -6,7 +6,7 @@
       "value": "rg-agentic-webgen"
     },
     "location": {
-      "value": "East US2"
+      "value": "eastus2"
     },
     "storageAccountName": {
       "value": "stagenticwebgenw"
@@ -18,7 +18,7 @@
       "value": "func-agentic-webgen-flex"
     },
     "aiFoundryName": {
-      "value": "ai-foundry-webgenw"
+      "value": "ai-foundry-webgenw2"
     }
   }
 }

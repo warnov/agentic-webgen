@@ -225,7 +225,7 @@
             },
             {
               "type": "Microsoft.CognitiveServices/accounts",
-              "apiVersion": "2023-05-01",
+              "apiVersion": "2024-10-01",
               "name": "[parameters('aiFoundryName')]",
               "location": "[parameters('location')]",
               "tags": {
@@ -241,6 +241,7 @@
               "properties": {
                 "customSubDomainName": "[parameters('aiFoundryName')]",
                 "publicNetworkAccess": "Enabled",
+                "allowProjectManagement": true,
                 "networkAcls": {
                   "defaultAction": "Allow"
                 }
