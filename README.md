@@ -19,6 +19,9 @@ This repository provides a hands-on implementation of a multi-agent system built
     - [Quick Windows Setup](#quick-windows-setup)
   - [Solution Setup](#solution-setup)
     - [Required Components](#required-components)
+    - [Configure Deployed Services](#configure-deployed-services)
+      - [Azure Storage](#azure-storage)
+      - [Azure Function](#azure-function)
 ---
 
 ## Project Overview
@@ -174,3 +177,25 @@ The infrastructure includes:
 
 ---
 
+### Configure Deployed Services
+At this point it is supposed that either using the provided ARM template or manually, you have deployed the necessary Azure resources. Now, you should have the [required components](#required-components) ready. With these components in place, you can proceed to configure the services as follows:
+
+#### Azure Storage
+Two storage containers were deployed:
+- **`templates`**: Contains the HTML template for business cards, which is private and not publicly accessible. A sample template file called [`business_card_template.html`](./misc/business_card_template.html) is provided in the `misc` folder. You can upload it to the `templates` container using Azure Storage Explorer, the Azure Portal or this command (for this you need to have the Azure CLI installed, configured and authenticated):
+ 
+```bash
+az storage blob upload --account-name stagenticwebgen --container-name templates --file ./misc/business_card_template.html --name business_card_template.html
+```
+That is the template that will be used by the Azure Function to generate the business cards.
+
+- **`cards`**: Publicly accessible container where generated business cards will be stored by the Azure Function. The cards will be accessible via public URLs. No required action at this point.
+
+#### Azure Function
+The Azure Function App is already configured to use the storage account created in the infrastructure deployment. You can verify this in the Azure Portal under the Function App's **Configuration** settings.
+We just need to upload the code for the Azure Function that will generate the business cards. You can do this by using any of the methods described [here](https://learn.microsoft.com/en-us/azure/azure-functions/functions-deployment-technologies?tabs=windows#deployment-methods). 
+For example, opening the [function project](AgenticWebGen.DotNetTools/AgenticWebGen.DotNetTools.Fx) in Visual Studio Code and running the following command in the terminal:
+
+```bash
+func azure functionapp publish <YourFunctionAppName>
+```

@@ -103,6 +103,8 @@
                 "supportsHttpsTrafficOnly": true,
                 "allowBlobPublicAccess": true,
                 "publicNetworkAccess": "Enabled",
+                "allowSharedKeyAccess": true,
+                "minimumTlsVersion": "TLS1_2",
                 "networkAcls": {
                   "bypass": "AzureServices",
                   "virtualNetworkRules": [],
