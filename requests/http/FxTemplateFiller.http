@@ -1,0 +1,10 @@
+### Test FxTemplateFiller Function
+POST http://localhost:7071/api/FxTemplateFiller
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "title": "Software Engineer",
+  "city": "Seattle",
+  "company": "Contoso"
+}

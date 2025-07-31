@@ -3,22 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "resourceGroupName": {
-      "value": "rg-agentic-webgen"
+      "value": "rg-webgen"
     },
     "location": {
       "value": "eastus2"
     },
     "storageAccountName": {
-      "value": "stagenticwebgenw"
+      "value": "stagenticwebgen"
     },
     "environment": {
       "value": "dev"
     },
     "functionAppName": {
-      "value": "func-agentic-webgen-flex"
+      "value": "fx-agentic-webgen"
     },
     "aiFoundryName": {
-      "value": "ai-foundry-webgenw2"
+      "value": "aif-webgen"
     }
   }
 }
