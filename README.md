@@ -136,7 +136,8 @@ Install:
 - [Git](https://git-scm.com/downloads)
 - [Python 3.12+](https://www.python.org/downloads/)
 - [.NET SDK 8+](https://dotnet.microsoft.com/download)
-- [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local) (for local development and testing of Azure Functions)
+- [Azure CLI Tools](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli) 
+- [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local)
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Recommended VSCode Extensions
@@ -155,11 +156,21 @@ code --install-extension humao.rest-client
 
 ### Quick Windows Setup
 
+
 Run this included PowerShell script if you are in Windows and want to automate the setup of the development environment:
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; ./misc/setup-dev-win.ps1
 ```
+
+This script will automatically install:
+- Visual Studio Code
+- Git for Windows
+- Python 3.12
+- .NET SDK 8
+- Azure CLI Tools
+- Azure Functions Core Tools
+- Recommended VSCode extensions
 
 ---
 ## Solution Setup

@@ -6,6 +6,7 @@ winget install --id Microsoft.VisualStudioCode -e --accept-package-agreements --
 Write-Host "`nInstalling Git for Windows..." -ForegroundColor Cyan
 winget install --id Git.Git -e --accept-package-agreements --accept-source-agreements
 
+
 # Install Python 3.12
 Write-Host "`nInstalling Python 3.12..." -ForegroundColor Cyan
 winget install --id Python.Python.3.12 -e --accept-package-agreements --accept-source-agreements
@@ -15,6 +16,11 @@ Write-Host "`nPython was installed successfully." -ForegroundColor Green
 Write-Host "`nInstalling .NET SDK..." -ForegroundColor Cyan
 winget install --id Microsoft.DotNet.SDK.8 -e --accept-package-agreements --accept-source-agreements
 Write-Host "`n.NET SDK was installed successfully." -ForegroundColor Green
+
+# Install Azure CLI Tools
+Write-Host "`nInstalling Azure CLI Tools..." -ForegroundColor Cyan
+winget install --id Microsoft.AzureCLI -e --accept-package-agreements --accept-source-agreements
+Write-Host "`nAzure CLI Tools was installed successfully." -ForegroundColor Green
 
 # Install VSCode extensions
 Write-Host "`nInstalling VSCode extensions..." -ForegroundColor Cyan

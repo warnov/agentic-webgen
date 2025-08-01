@@ -3,8 +3,10 @@ POST http://localhost:7071/api/FxTemplateFiller
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "title": "Software Engineer",
-  "city": "Seattle",
-  "company": "Contoso"
-}
+    "title": "CSA",
+    "name": "Walter Novoa",
+    "city": "Bogotá",
+    "profession": "Cloud Solutions Architect",
+    "message": "Ready to design",
+    "date": "2025-06-23"
+  }
