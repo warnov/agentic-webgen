@@ -22,6 +22,11 @@ Write-Host "`nInstalling Azure CLI Tools..." -ForegroundColor Cyan
 winget install --id Microsoft.AzureCLI -e --accept-package-agreements --accept-source-agreements
 Write-Host "`nAzure CLI Tools was installed successfully." -ForegroundColor Green
 
+# Install Azure Functions Core Tools
+Write-Host "`nInstalling Azure Functions Core Tools..." -ForegroundColor Cyan
+winget install --id Microsoft.Azure.FunctionsCoreTools --accept-package-agreements --accept-source-agreements
+Write-Host "`nAzure Functions Core Tools was installed successfully." -ForegroundColor Green
+
 # Install VSCode extensions
 Write-Host "`nInstalling VSCode extensions..." -ForegroundColor Cyan
 
