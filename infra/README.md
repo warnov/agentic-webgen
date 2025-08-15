@@ -1,6 +1,6 @@
 # Azure Infrastructure Templates
 
-This directory contains ARM templates and scripts to deploy the complete infrastructure required for the Agentic Web Generator project on Azure.
+This `infra` directory contains ARM templates and scripts to deploy the complete infrastructure required for the Agentic Web Generator project on Azure. Following a description of its structure and then instructions for deployment.
 
 ## Files
 
@@ -73,7 +73,9 @@ This directory contains ARM templates and scripts to deploy the complete infrast
 
 ### Step 1: Customize Parameters
 
-Before deploying, update the `infrastructure.parameters.json` file with your custom values. Current configuration:
+Before deploying, update the `infrastructure.parameters.json` file with your custom values. 
+
+Current configuration:
 
 ```json
 {
@@ -121,6 +123,28 @@ Before deploying, update the `infrastructure.parameters.json` file with your cus
 - **`environment`**: Currently set to `"dev"`
   - Used for resource tagging and organization
 
+## Pre-Deployment Checklist
+
+Before running the deployment, ensure you have:
+
+- ✅ **Updated** `infrastructure.parameters.json` with your custom values
+- ✅ **Verified** all resource names are globally unique
+- ✅ **Selected** appropriate Azure region for your location
+- ✅ **Logged in** to Azure CLI (`az login`)
+- ✅ **Set** the correct Azure subscription (`az account set --subscription <id>`)
+
+### Testing Resource Name Availability
+
+You can check if your resource names are available:
+
+```bash
+# Check storage account name
+az storage account check-name --name stagenticwebgen
+
+# Check function app name
+az functionapp show --name func-agentic-webgen --resource-group rg-agentic-webgen
+```
+
 ## Usage
 
 ### Step 2: Deploy the Infrastructure
@@ -164,57 +188,6 @@ az deployment sub create \
   --template-file infrastructure.json \
   --parameters resourceGroupName="my-rg" storageAccountName="mystorage123" functionAppName="my-func-app" aiFoundryName="my-ai-foundry"
 ```
-
-## Pre-Deployment Checklist
-
-Before running the deployment, ensure you have:
-
-- ✅ **Updated** `infrastructure.parameters.json` with your custom values (if needed)
-- ✅ **Verified** all resource names are globally unique
-- ✅ **Selected** appropriate Azure region for your location
-- ✅ **Logged in** to Azure CLI (`az login`)
-- ✅ **Set** the correct Azure subscription (`az account set --subscription <id>`)
-
-### Testing Resource Name Availability
-
-You can check if your resource names are available:
-
-```bash
-# Check storage account name
-az storage account check-name --name stagenticwebgen
-
-# Check function app name
-az functionapp show --name func-agentic-webgen --resource-group rg-agentic-webgen
-```
-
-## Deployment Architecture
-
-This template uses a **subscription-level deployment** with a nested resource group deployment pattern:
-
-1. **Subscription Level**: Creates the resource group
-2. **Resource Group Level**: Deploys all resources within the created resource group
-
-### Resources Created:
-
-1. **Storage Account** (`stagenticwebgen`)
-   - Standard LRS with Hot access tier
-   - Two blob containers: `templates` (private) and `cards` (public)
-   - Connection string automatically configured for Function App
-
-2. **App Service Plan** (`func-agentic-webgen-linux-asp`)
-   - Elastic Premium (EP1) tier
-   - Linux-based with elastic scaling (0-20 instances)
-   - Optimized for Azure Functions workloads
-
-3. **Function App** (`func-agentic-webgen`)
-   - .NET 8 Isolated runtime on Linux
-   - Pre-configured with storage connection strings
-   - Ready for serverless execution
-
-4. **AI Foundry** (`ai-foundry-webgen`)
-   - Cognitive Services account with AIServices kind
-   - Standard S0 pricing tier
-   - System-assigned managed identity enabled
 
 ## Post-Deployment Steps
 

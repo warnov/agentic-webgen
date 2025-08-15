@@ -3,42 +3,6 @@
 This repository provides a hands-on implementation of a multi-agent system built with **Azure AI Foundry**, demonstrating how intelligent agents can be orchestrated to generate and publish personalized business cards as web pages, starting from natural language input.
 
 ---
-
-## Table of Contents
-
-- [Agentic Web Generator on Azure AI Foundry](#agentic-web-generator-on-azure-ai-foundry)
-  - [Table of Contents](#table-of-contents)
-  - [Project Overview](#project-overview)
-  - [What You'll Learn](#what-youll-learn)
-  - [Architecture](#architecture)
-    - [Execution Flow](#execution-flow)
-    - [Visual Highlights in the Diagram](#visual-highlights-in-the-diagram)
-  - [Installation \& Requirements](#installation--requirements)
-    - [Prerequisites](#prerequisites)
-    - [Recommended VSCode Extensions](#recommended-vscode-extensions)
-    - [Quick Windows Setup](#quick-windows-setup)
-  - [Solution Setup](#solution-setup)
-    - [Deploy Azure Required Components](#deploy-azure-required-components)
-    - [Configure Deployed Services](#configure-deployed-services)
-      - [Azure Storage](#azure-storage)
-      - [Azure Function](#azure-function)
-      - [Azure AI Foundry](#azure-ai-foundry)
-  - [Clone the code and start coding!](#clone-the-code-and-start-coding)
-    - [Folder Structure](#folder-structure)
-      - [Key Components Explained](#key-components-explained)
-        - [🐍 **agent-webmaster-py/**](#-agent-webmaster-py)
-        - [⚡ **AgenticWebGen.DotNetTools/**](#-agenticwebgendotnettools)
-        - [🏗️ **infra/**](#️-infra)
-        - [🔧 **requests/**](#-requests)
-        - [🌐 **webapp/**](#-webapp)
-        - [📦 **misc/**](#-misc)
-    - [Setting Up the Environment](#setting-up-the-environment)
-      - [Azure Function (FxTemplateFiller - C#)](#azure-function-fxtemplatefiller---c)
-      - [Agents Application (Python Console App)](#agents-application-python-console-app)
-        - [Card Generator Agent Testing](#card-generator-agent-testing)
-        - [Orchestrator Agent Testing](#orchestrator-agent-testing)
----
-
 ## Project Overview
 
 This application demonstrates a **multi-agent architecture** where the user interacts through a Python console app to request the creation of a business card for a given person. The user can provide full or partial data (name, profession, location, etc.), and the agents will intelligently complete the rest and generate a realistic business card.
@@ -72,6 +36,43 @@ Could produce a card like this (Observe that in this situations we won't have pr
 - How to separate model intelligence from system orchestration logic.
 
 ---
+
+## Table of Contents
+
+- [Agentic Web Generator on Azure AI Foundry](#agentic-web-generator-on-azure-ai-foundry)
+  - [Project Overview](#project-overview)
+  - [What You'll Learn](#what-youll-learn)
+  - [Table of Contents](#table-of-contents)
+  - [Architecture](#architecture)
+    - [Execution Flow](#execution-flow)
+    - [Visual Highlights in the Diagram](#visual-highlights-in-the-diagram)
+  - [Installation \& Requirements](#installation--requirements)
+    - [Git Clone this repository](#git-clone-this-repository)
+    - [Prerequisites](#prerequisites)
+    - [Recommended VSCode Extensions](#recommended-vscode-extensions)
+    - [Quick Windows Setup](#quick-windows-setup)
+  - [Solution Setup](#solution-setup)
+    - [Deploy Azure Required Components](#deploy-azure-required-components)
+    - [Configure Deployed Services](#configure-deployed-services)
+      - [Azure Storage](#azure-storage)
+      - [Azure Function](#azure-function)
+      - [Azure AI Foundry](#azure-ai-foundry)
+  - [Clone the code and run your agents!](#clone-the-code-and-run-your-agents)
+    - [Folder Structure](#folder-structure)
+      - [Key Components Explained](#key-components-explained)
+        - [🐍 **agent-webmaster-py/**](#-agent-webmaster-py)
+        - [⚡ **AgenticWebGen.DotNetTools/**](#-agenticwebgendotnettools)
+        - [🏗️ **infra/**](#️-infra)
+        - [🔧 **requests/**](#-requests)
+        - [🌐 **webapp/**](#-webapp)
+        - [📦 **misc/**](#-misc)
+    - [Setting Up the Environment](#setting-up-the-environment)
+      - [Azure Function (FxTemplateFiller - C#)](#azure-function-fxtemplatefiller---c)
+      - [Agents Application (Python Console App)](#agents-application-python-console-app)
+        - [Card Generator Agent Testing](#card-generator-agent-testing)
+        - [Orchestrator Agent Testing](#orchestrator-agent-testing)
+---
+
 
 ## Architecture
 
@@ -127,11 +128,18 @@ This setup showcases a modular, extensible AI solution using LLM-based agents, m
 
 ## Installation & Requirements
 
-This solution works on **Windows, macOS, and Linux**. A script is provided for quick setup on Windows.
+### Git Clone this repository
+To get started, clone this repository to your local machine:
+```bash
+git clone https://github.com/warnov/agentic-webgen.git
+cd agentic-webgen
+```
 
+This solution works on **Windows, macOS, and Linux**.
 ### Prerequisites
+If you are using Windows, you can run the provided [PowerShell script](#quick-windows-setup) to automate the setup of the development environment.
 
-Install:
+Otherwise, install:
 
 - [Git](https://git-scm.com/downloads)
 - [Python 3.12+](https://www.python.org/downloads/)
@@ -160,7 +168,7 @@ code --install-extension humao.rest-client
 Run this included PowerShell script if you are in Windows and want to automate the setup of the development environment:
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; ./misc/setup-dev-win.ps1
+Set-ExecutionPolicy Bypass -Scope Process -Force; .\misc\setup-dev-win.ps1
 ```
 
 This script will automatically install:
@@ -249,7 +257,7 @@ We need to create an AI Foundry project within the Azure AI Foundry resource. Th
 
 With this, you are ready to run the solution. The Python client will use this endpoint to interact with the AI Foundry project and manage the agents! 🤖
 
-## Clone the code and start coding!
+## Clone the code and run your agents!
 
 To get started with the code, clone this repository to your local machine:
 ```bash
@@ -365,36 +373,58 @@ Supporting files including templates, documentation, setup scripts, and architec
 
 ### Setting Up the Environment
 To run the solution, you need to set up the environment variables and install the required dependencies.
+
 #### Azure Function (FxTemplateFiller - C#)
-To test your function locally, you will need a `local.settings.json` file in the `AgenticWebGen.DotNetTools/AgenticWebGen.DotNetTools.Fx` folder. You can use the provided `local.settings.json.txt` as a template and rename it to `local.settings.json`. Make sure to set the `AZURE_STORAGE_CONNECTION_STRING` to the connection string of the storage account you created in the infrastructure deployment.
-With this, you could run the Azure Function locally for example using the Azure Functions Core Tools (or Visual Studio if you have it installed). You can do this by running the following command in the `AgenticWebGen.DotNetTools/AgenticWebGen.DotNetTools.Fx` folder:
+To test your Azure Function locally, follow these steps:
 
-```bash
-func start
-```
-Then, if you installed the recommended rest client extension for VSCode, you can test the Azure Function using the provided `requests/http/FxTemplateFiller.http` file by clicking `Send Request`. (You could use other tools such as Postman, Curl, etc.)
+1. **Prepare your local settings**
+   - Open the folder: `AgenticWebGen.DotNetTools/AgenticWebGen.DotNetTools.Fx`
+   - Copy the template file and rename it:
+     ```powershell
+     copy local.settings.json.txt local.settings.json
+     ```
+   - Edit `local.settings.json` and set `AZURE_STORAGE_CONNECTION_STRING` to your Azure Storage account connection string.
 
-It should give you a response with the URL of the generated business card HTML file, which you can then open in your browser to see the result:
-```
-HTTP/1.1 200 OK
-Connection: close
-Content-Type: application/json; charset=utf-8
-Date: Wed, 30 Jul 2025 21:07:05 GMT
-Server: Kestrel
-Transfer-Encoding: chunked
+2. **Start the Azure Function host**
+   - In the same folder, open a terminal and run:
+     ```bash
+     func start
+     ```
+   - (Or use Visual Studio to run/debug if preferred)
 
-{
-  "url": "https://yourstorageaccount.blob.core.windows.net/cards/filled_template_20250730210706.html"
-}
-```
+3. **Test the endpoint**
+  - With the REST Client extension, open [`requests/http/FxTemplateFiller.http`](./requests/http/FxTemplateFiller.http) and click `Send Request`.
+   - Or use Postman/Curl to send a request to the local endpoint.
+
+4. **Check the response**
+   - A successful response will look like:
+     ```http
+     HTTP/1.1 200 OK
+     Content-Type: application/json; charset=utf-8
+     {
+       "url": "https://yourstorageaccount.blob.core.windows.net/cards/filled_template_20250730210706.html"
+     }
+     ```
+   - Open the returned URL in your browser to view the generated business card.
 #### Agents Application (Python Console App)
-Create a `.env` file in the `agent-webmaster-py/` folder based on the provided `.env.txt` template. Be sure to set the `PROJECT_ENDPOINT`, the `AZURE_STORAGE_CONNECTION_STRING`, and the `AZURE_FUNCTION_URL` to the values of your Azure AI Foundry project endpoint, the storage account connection string, and the Azure Function URL (with its code) respectively.
 
-Now, we need to install the required Python dependencies. You can do this by running the following command in the `agent-webmaster-py/` folder:
+To set up and run the Python agents application:
 
-```bash
-pip install -r requirements.txt
-```
+1. **Configure environment variables**
+   - In the `agent-webmaster-py/` folder, copy the template file and rename it:
+     ```powershell
+     copy .env.txt .env
+     ```
+   - Edit `.env` and set these values:
+     - `PROJECT_ENDPOINT`: Your Azure AI Foundry project endpoint
+     - `AZURE_STORAGE_CONNECTION_STRING`: Your Azure Storage account connection string
+     - `AZURE_FUNCTION_URL`: The Azure Function URL (including its code)
+
+2. **Install Python dependencies**
+   - In the same folder, run:
+     ```bash
+     pip install -r requirements.txt
+     ```
 
 ##### Card Generator Agent Testing
 As it was explained, we have two agents: the **JSON Card Generator Agent** and the **Orchestrator Agent**. The first one is used to extract structured data from natural language input, while the second one is used to orchestrate the workflow and call the Azure Function to generate the business card HTML file. So, being the first one the simplest, you can test it by running the following command in the `agent-webmaster-py/agents/ag_card_generator/` folder:
