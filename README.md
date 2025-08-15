@@ -44,8 +44,8 @@ Could produce a card like this (Observe that in this situations we won't have pr
   - [What You'll Learn](#what-youll-learn)
   - [Table of Contents](#table-of-contents)
   - [Architecture](#architecture)
-    - [Execution Flow](#execution-flow)
     - [Visual Highlights in the Diagram](#visual-highlights-in-the-diagram)
+    - [Execution Flow](#execution-flow)
   - [Installation \& Requirements](#installation--requirements)
     - [Git Clone this repository](#git-clone-this-repository)
     - [Prerequisites](#prerequisites)
@@ -79,6 +79,16 @@ Could produce a card like this (Observe that in this situations we won't have pr
 ![Architecture](misc/agentic_webgen_arch.png)
 
 The diagram above illustrates the complete solution architecture based on **Azure AI Foundry**, which enables generating and publishing personal business cards starting from natural language input, using a **multi-agent approach**. Each component is designed to show how agents, tools, and Azure services interact to produce the final result.
+
+---
+### Visual Highlights in the Diagram
+
+- **Tools used by the Orchestrator Agent** are clearly shown in **green**, representing its orchestration capabilities and ability to delegate tasks.
+- **Calls to GPT-3.5 models** are shown in **orange**, emphasizing that reasoning is powered by a language model.
+- **Azure Function and Storage** are integrated as external components, accessible from agents via tools.
+- **Separation of storage containers** (one for templates, one for generated cards) reflects a clean, scalable architecture.
+
+This setup showcases a modular, extensible AI solution using LLM-based agents, multi-step orchestration, and cloud-native publishing.
 
 ---
 
@@ -115,17 +125,6 @@ The diagram above illustrates the complete solution architecture based on **Azur
 
 ---
 
-### Visual Highlights in the Diagram
-
-- **Tools used by the Orchestrator Agent** are clearly shown in **green**, representing its orchestration capabilities and ability to delegate tasks.
-- **Calls to GPT-3.5 models** are shown in **orange**, emphasizing that reasoning is powered by a language model.
-- **Azure Function and Storage** are integrated as external components, accessible from agents via tools.
-- **Separation of storage containers** (one for templates, one for generated cards) reflects a clean, scalable architecture.
-
-This setup showcases a modular, extensible AI solution using LLM-based agents, multi-step orchestration, and cloud-native publishing.
-
----
-
 ## Installation & Requirements
 
 ### Git Clone this repository
@@ -136,11 +135,9 @@ cd agentic-webgen
 ```
 
 This solution works on **Windows, macOS, and Linux**.
+
 ### Prerequisites
-If you are using Windows, you can run the provided [PowerShell script](#quick-windows-setup) to automate the setup of the development environment.
-
-Otherwise, install:
-
+To run this solution, you need to have the following tools installed on your machine:
 - [Git](https://git-scm.com/downloads)
 - [Python 3.12+](https://www.python.org/downloads/)
 - [.NET SDK 8+](https://dotnet.microsoft.com/download)
@@ -149,29 +146,20 @@ Otherwise, install:
 - [Visual Studio Code](https://code.visualstudio.com/)
 
 ### Recommended VSCode Extensions
-
+Having the following extensions installed will enhance your development experience:
 - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
 - [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 - [C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 - [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
-```bash
-code --install-extension ms-python.python
-code --install-extension ms-azuretools.vscode-azurefunctions
-code --install-extension ms-dotnettools.csharp
-code --install-extension humao.rest-client
-```
-
 ### Quick Windows Setup
-
-
-Run this included PowerShell script if you are in Windows and want to automate the setup of the development environment:
+Run this included PowerShell script if you are in Windows and want to automate the setup of the development environment. [`winget`](https://learn.microsoft.com/en-us/windows/package-manager/winget/) is required.
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; .\misc\setup-dev-win.ps1
 ```
 
-This script will automatically install:
+This script will automatically install (or update if already installed):
 - Visual Studio Code
 - Git for Windows
 - Python 3.12
@@ -189,7 +177,7 @@ This solution requires the deployment of a resource group that will contain all 
 
 ### Deploy Azure Required Components
 
-We have included the [infra](./infra) folder from where you can deploy all the necessary Azure infrastructure components for this solution. Please check its [readme](./infra/README.md).
+We have included the [infra](./infra) folder from where you can deploy all the necessary Azure infrastructure components for this solution. Please check its [readme](./infra/README.md) for detailed instructions on deployment.
 
 The infrastructure includes:
 
